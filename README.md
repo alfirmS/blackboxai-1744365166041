@@ -65,7 +65,30 @@ This is a complex inventory management application built using Node.js (Express)
 ## Creating a Token
 1. When a user logs in, validate their credentials.
 2. If valid, use the `jsonwebtoken` library to create a token.
-3. The secret key used to sign the token is currently hardcoded as `'your_secret_key'` in the `authMiddleware.js` file. It is recommended to replace this with an environment variable for better security.
+3. The secret key used to sign the token should be stored in a `.env` file.
 
 ### Example of Setting the Secret Key
-- You can set the secret key in your environment variables and access it in your code using `process.env.SECRET_KEY`.
+- Create a `.env` file in the root of your project and add the following line:
+```
+SECRET_KEY=your_secret_key_here
+```
+- Install the `dotenv` package and load it in your `server.js`:
+```javascript
+require('dotenv').config();
+```
+
+## Adjusting the Workspace for `.env` Usage
+1. Ensure that the `dotenv` package is installed in your project.
+2. Load the environment variables at the top of your `server.js` file:
+```javascript
+require('dotenv').config();
+```
+
+## Using the Secret Key in Your Code
+- Replace any hardcoded secret key in your code with `process.env.SECRET_KEY`. For example:
+```javascript
+jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+    if (err) return res.sendStatus(403);
+    req.user = user;
+    next();
+});
