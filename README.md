@@ -61,3 +61,11 @@ This is a complex inventory management application built using Node.js (Express)
 - **History Logs**
   - `GET /api/history`: Get all history logs.
   - `POST /api/history`: Log a change in inventory.
+
+## Creating a Token
+1. When a user logs in, validate their credentials.
+2. If valid, use the `jsonwebtoken` library to create a token.
+3. The secret key used to sign the token is currently hardcoded as `'your_secret_key'` in the `authMiddleware.js` file. It is recommended to replace this with an environment variable for better security.
+
+### Example of Setting the Secret Key
+- You can set the secret key in your environment variables and access it in your code using `process.env.SECRET_KEY`.
